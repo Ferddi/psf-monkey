@@ -27,7 +27,7 @@ How to install the target
 -------------------------
 
 1. Download DirectX SDK December 2006: http://www.microsoft.com/en-au/download/details.aspx?id=10990 (448MB!)  
-You can use other version, as long as Direct X 7 is still there.  That is, Direct Draw and Direct 3D 7.
+You can use other version, as long as Direct X 7 is still there.  That is, Direct Draw and Direct 3D 7.  Install the DirectX SDK into the directory C:\sdk\Microsoft DirectX SDK (December 2006).  IF NOT YOU HAVE TO CHANGE IT IN THE VISUAL C++ SOLUTION FILE!
 
 2. Download the target from github, and copy the directory over into your monkey directory.  Hopefully seeing the github you will realise where those directory should go.
 
