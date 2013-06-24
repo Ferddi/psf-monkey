@@ -29,7 +29,7 @@ How to install the target
 1. Download DirectX SDK December 2006: http://www.microsoft.com/en-au/download/details.aspx?id=10990 (448MB!)  
 You can use other version, as long as Direct X 7 is still there.  That is, Direct Draw and Direct 3D 7.  Install the DirectX SDK into the directory C:\sdk\Microsoft DirectX SDK (December 2006).  IF NOT YOU HAVE TO CHANGE IT IN THE VISUAL C++ SOLUTION FILE!
 
-2. Download the target from github, and copy the directory over into your monkey directory.  Hopefully seeing the github you will realise where those directory should go.
+2. Download the target from github (https://github.com/Ferddi/psf-monkey), and copy the directory over into your monkey directory.  Hopefully seeing the github you will realise where those directory should go.
 
 3. In the directory monkey/src/transcc/ there is a batch file "c.bat".  Double click on this file.  It will do the following to your Monkey directory:
 A) Rename transcc_winnt.exe to transcc_winnt_original.exe
@@ -47,7 +47,7 @@ Support
 
 Contact me Ferdi on our forums for support.
 
-http://www.monkeycoder.co.nz/Community/_index_.php
+http://www.monkeycoder.co.nz/Community/posts.php?topic=5439
 
 Or email me, my email address is at.
 
