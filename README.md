@@ -38,7 +38,7 @@ B) Compile the new transcc_winnt.exe to be able to compile the sexy framework.
 4. In the directory monkey/modules/mojo/, in the file app.monkey, you need to add:
 TARGET="sexy" Or - into the line so it becomes:
 \#If TARGET="sexy" Or TARGET="android" Or TARGET="flash" Or TARGET="glfw" Or TARGET="html5" Or TARGET="ios" Or TARGET="psm" Or TARGET="win8" Or TARGET="xna"
-so that it Import native/mojo.sexy.cpp 
+so that it Import native/mojo.sexy.cpp.  IF YOU DO NOT DO THIS STEP, YOU WILL GET 101 ERRORS and 19 WARNINGS! 
 
 5. That's it and hopefully when you open up Ted "PopCap Sexy Framework" will appear as a target.  AND you can compile the bananas.
 
