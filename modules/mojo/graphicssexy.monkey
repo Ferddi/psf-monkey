@@ -8,7 +8,8 @@ Extern Private
 
 	Function SetGraphicsNative:Void(width:Int, height:Int) = "SetGraphicsNative"
 	Function SwitchScreenNative:Void(fullScreen:Bool) = "SwitchScreenNative"
-	Function SetLinearBlendNative:Void(fullScreen:Bool) = "SetLinearBlendNative"
+	Function SetLinearBlendNative:Void(blend:Bool) = "SetLinearBlendNative"
+	Function CenterWindowNative:Void(center:Bool) = "CenterWindowNative"
 
 Public
 
@@ -32,5 +33,11 @@ End Function
 Function SetLinearBlend:Void(blend:Bool)
 	#If TARGET = "sexy"
 	SetLinearBlendNative(blend)
+	#End
+End Function
+
+Function CenterWindow:Void(center:Bool)
+	#If TARGET = "sexy"
+	CenterWindowNative(center)
 	#End
 End Function

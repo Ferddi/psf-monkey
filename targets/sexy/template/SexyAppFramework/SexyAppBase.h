@@ -135,6 +135,7 @@ public:
 	int						mRelaxUpdateBacklogCount; // app doesn't try to catch up for this many frames
 	int						mPreferredX;
 	int						mPreferredY;
+	bool					mCenterWindow;
 	int						mWidth;
 	int						mHeight;
 	int						mFullscreenBits;

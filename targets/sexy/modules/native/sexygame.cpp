@@ -562,7 +562,7 @@ GameApp::GameApp()
 	// Indicates the registry location where all registry keys will be read from
 	// and written to. This is stored under the HKEY_CURRENT_USER tree on 
 	// Windows systems.
-	mRegKey = "PopCap\\SexyAppFramework\\ShootCraft";
+	mRegKey = "PopCap\\SexyAppFramework\\MonkeyGame";
 
 	// Set the application width/height in terms of pixels here. Let's
 	// use a different resolution from Demo 1 just for fun.

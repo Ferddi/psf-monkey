@@ -135,6 +135,8 @@ void* GetSHGetFolderPath(const char* theDLL, HMODULE* theMod)
 
 //////////////////////////////////////////////////////////////////////////
 
+extern bool gPopCapCenterWindow;
+
 SexyAppBase::SexyAppBase()
 {
 	gSexyAppBase = this;
@@ -177,6 +179,7 @@ SexyAppBase::SexyAppBase()
 	mFullScreenWindow = false;
 	mPreferredX = -1;
 	mPreferredY = -1;
+	mCenterWindow = gPopCapCenterWindow;
 	mIsScreenSaver = false;
 	mAllowMonitorPowersave = true;
 	mHWnd = NULL;
@@ -4667,6 +4670,12 @@ void SexyAppBase::MakeWindow()
 			
 			if (aPlaceY + aHeight >= aDesktopRect.bottom - aSpacing)
 				aPlaceY = aDesktopRect.bottom - aHeight - aSpacing;
+		}
+
+		if (mCenterWindow == true)
+		{
+			aPlaceX = ((aDesktopRect.right - aDesktopRect.left) - aWidth) / 2;
+			aPlaceY = ((aDesktopRect.bottom - aDesktopRect.top) - aHeight) / 2;
 		}
 
 		if (CheckFor98Mill())

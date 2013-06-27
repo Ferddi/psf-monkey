@@ -1243,3 +1243,9 @@ static void SetLinearBlendNative(bool blend)
 {
 	gPopCapGraphics->SetLinearBlend(blend);
 }
+
+bool gPopCapCenterWindow = false;
+static void CenterWindowNative(bool center)
+{
+	gPopCapCenterWindow = center;
+}
