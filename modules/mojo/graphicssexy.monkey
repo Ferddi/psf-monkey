@@ -8,6 +8,7 @@ Extern Private
 
 	Function SetGraphicsNative:Void(width:Int, height:Int) = "SetGraphicsNative"
 	Function SwitchScreenNative:Void(fullScreen:Bool) = "SwitchScreenNative"
+	Function SetLinearBlendNative:Void(fullScreen:Bool) = "SetLinearBlendNative"
 
 Public
 
@@ -19,11 +20,17 @@ Function SetGraphics:Void(width:Int, height:Int)
 	#If TARGET = "sexy"
 	SetGraphicsNative(width, height)
 	#End
-End
+End Function
 
 Function SwitchScreen:Void(fullScreen:Bool)
 	' --- this will change the resolution of the running app ---
 	#If TARGET = "sexy"
 	SwitchScreenNative(fullScreen)
 	#End
-End
+End Function
+
+Function SetLinearBlend:Void(blend:Bool)
+	#If TARGET = "sexy"
+	SetLinearBlendNative(blend)
+	#End
+End Function

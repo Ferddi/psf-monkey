@@ -1238,3 +1238,8 @@ static bool IsFullscreenNative()
 {
 	return !gPopCapApp->mIsWindowed;
 }
+
+static void SetLinearBlendNative(bool blend)
+{
+	gPopCapGraphics->SetLinearBlend(blend);
+}
