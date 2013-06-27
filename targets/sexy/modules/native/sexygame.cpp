@@ -42,7 +42,7 @@ public:
 	static void Main(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 };
 
-BBMonkeyGame *gPopCapGame;
+BBMonkeyGame *gPopCapGame = NULL;
 
 //***** board.h *****
 
@@ -291,7 +291,7 @@ class GameApp : public SexyAppBase
 
 //***** board.cpp *****
 
-GameApp *gPopCapApp;
+GameApp *gPopCapApp = NULL;
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
@@ -321,7 +321,10 @@ void Board::Update()
 	// call.
 	Widget::Update();
 
-	gPopCapGame->UpdateGame();
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->UpdateGame();
+	}
 
 	// For this and most of the other demos, you will see the function
 	// below called every Update() call. MarkDirty() tells the widget
@@ -354,7 +357,7 @@ void Board::Update()
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
-Graphics *gPopCapGraphics;
+Graphics *gPopCapGraphics = NULL;
 bool gIs3D;
 
 void Board::Draw(Graphics* g)
@@ -362,7 +365,12 @@ void Board::Draw(Graphics* g)
 	gPopCapGraphics = g;
 	gIs3D = g->mIs3D;
 
-	gPopCapGame->RenderGame();
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->RenderGame();
+	}
+
+	gPopCapGraphics = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -370,7 +378,10 @@ void Board::Draw(Graphics* g)
 
 void Board::MouseMove(int x, int y)
 {
-	gPopCapGame->MouseEvent( BBGameEvent::MouseMove,-1,(float)x,(float)y );
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->MouseEvent( BBGameEvent::MouseMove,-1,(float)x,(float)y );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -378,7 +389,10 @@ void Board::MouseMove(int x, int y)
 
 void Board::MouseDrag(int x, int y)
 {
-	gPopCapGame->MouseEvent( BBGameEvent::MouseMove,-1,(float)x,(float)y );
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->MouseEvent( BBGameEvent::MouseMove,-1,(float)x,(float)y );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -386,7 +400,10 @@ void Board::MouseDrag(int x, int y)
 
 void Board::MouseDown(int x, int y, int theBtnNum, int theClickCount)
 {
-	gPopCapGame->MouseEvent( BBGameEvent::MouseDown, theBtnNum, (float)x, (float)y );	
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->MouseEvent( BBGameEvent::MouseDown, theBtnNum, (float)x, (float)y );	
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -394,7 +411,10 @@ void Board::MouseDown(int x, int y, int theBtnNum, int theClickCount)
 
 void Board::MouseUp(int x, int y, int theBtnNum, int theClickCount)
 {
-	gPopCapGame->MouseEvent( BBGameEvent::MouseUp, theBtnNum, (float)x, (float)y );	
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->MouseEvent( BBGameEvent::MouseUp, theBtnNum, (float)x, (float)y );	
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -452,7 +472,10 @@ void Board::KeyChar(SexyChar theChar)
 {
 	int chr = theChar;
 
-	gPopCapGame->KeyEvent( BBGameEvent::KeyChar, chr );
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->KeyEvent( BBGameEvent::KeyChar, chr );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -462,7 +485,10 @@ void Board::KeyDown(KeyCode theKey)
 {
 	int key = theKey;
 
-	gPopCapGame->KeyEvent( BBGameEvent::KeyDown, key );
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->KeyEvent( BBGameEvent::KeyDown, key );
+	}
 
 	switch( key )
 	{
@@ -495,7 +521,10 @@ void Board::KeyDown(KeyCode theKey)
 
 	if( key != 0 )
 	{
-		gPopCapGame->KeyEvent( BBGameEvent::KeyChar,key );
+		if (gPopCapGame != NULL)
+		{
+			gPopCapGame->KeyEvent( BBGameEvent::KeyChar,key );
+		}
 	}
 }
 
@@ -506,7 +535,10 @@ void Board::KeyUp(KeyCode theKey)
 {
 	int key = theKey;
 
-	gPopCapGame->KeyEvent( BBGameEvent::KeyUp,key );
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->KeyEvent( BBGameEvent::KeyUp,key );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -594,7 +626,10 @@ void GameApp::Init()
 
 void GameApp::LoadingThreadProc()
 {
-	gPopCapGame->StartGame();
+	if (gPopCapGame != NULL)
+	{
+		gPopCapGame->StartGame();
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -678,19 +713,23 @@ void BBSexyGame::SetUpdateRate( int updateRate )
 {
 	BBGame::SetUpdateRate( updateRate );
 
-	gPopCapApp->mSyncRefreshRate = updateRate;
-	gPopCapApp->mFrameTime = (1000.0 / updateRate);
-	gPopCapApp->mMinUpdateFTimeAcc = 200.0;
-
-	if (updateRate < 5)
+	if (gPopCapApp != NULL)
 	{
-		gPopCapApp->mMinUpdateFTimeAcc = 1000.0;
-	}
+		gPopCapApp->mSyncRefreshRate = updateRate;
+		gPopCapApp->mFrameTime = (1000.0 / updateRate);
+		gPopCapApp->mMinUpdateFTimeAcc = 200.0;
 
-	if( _updateRate ){
-		_updatePeriod=1.0/_updateRate;
-//		_nextUpdate=sexyGetTime()+_updatePeriod;
-		_nextUpdate=timeGetTime()+_updatePeriod;
+		if (updateRate < 5)
+		{
+			gPopCapApp->mMinUpdateFTimeAcc = 1000.0;
+		}
+
+		if( _updateRate )
+		{
+			_updatePeriod=1.0/_updateRate;
+//			_nextUpdate=sexyGetTime()+_updatePeriod;
+			_nextUpdate=timeGetTime()+_updatePeriod;
+		}
 	}
 }
 
@@ -760,11 +799,17 @@ void BBSexyGame::SetMouseVisible( bool visible )
 {
 	if( visible )
 	{
-		gPopCapApp->SetCursor(CURSOR_POINTER);
+		if (gPopCapApp != NULL)
+		{
+			gPopCapApp->SetCursor(CURSOR_POINTER);
+		}
 	}
 	else
 	{
-		gPopCapApp->SetCursor(CURSOR_NONE);
+		if (gPopCapApp != NULL)
+		{
+			gPopCapApp->SetCursor(CURSOR_NONE);
+		}
 	}
 }
 
@@ -806,15 +851,19 @@ void BBSexyGame::Run()
 
 	// Create and initialize our game application.
 	gPopCapApp = new GameApp();
-	gPopCapApp->Init();
 
-	// Starts the entire application: sets up the resource loading thread and 
-	// custom cursor thread, and enters the game loop where the application
-	// will remain until it is shut down. You will most likely not need to
-	// override this function.
-	gPopCapApp->Start();
+	if (gPopCapApp != NULL)
+	{
+		gPopCapApp->Init();
 
-	delete gPopCapApp;
+		// Starts the entire application: sets up the resource loading thread and 
+		// custom cursor thread, and enters the game loop where the application
+		// will remain until it is shut down. You will most likely not need to
+		// override this function.
+		gPopCapApp->Start();
+
+		delete gPopCapApp;
+	}
 	
 	OutputHeading("Memory dump of possible memory leaks:" );
 	_CrtMemDumpAllObjectsSince( NULL );

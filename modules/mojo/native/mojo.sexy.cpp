@@ -136,7 +136,10 @@ void gxtkGraphics::Flush()
 	switch( primType )
 	{
 	case 1:
-		gPopCapGraphics->DrawPoints(triVertices, primCount);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->DrawPoints(triVertices, primCount);
+		}
 		break;
 	}
 
@@ -147,12 +150,22 @@ void gxtkGraphics::Flush()
 
 int gxtkGraphics::Width()
 {
-	return gPopCapApp->mWidth;
+	if (gPopCapApp != NULL)
+	{
+		return gPopCapApp->mWidth;
+	}
+
+	return 0;
 }
 
 int gxtkGraphics::Height()
 {
-	return gPopCapApp->mHeight;
+	if (gPopCapApp != NULL)
+	{
+		return gPopCapApp->mHeight;
+	}
+
+	return 0;
 }
 
 int gxtkGraphics::BeginRender()
@@ -173,11 +186,14 @@ int gxtkGraphics::Cls( float r,float g,float b )
 {
 	Color color;
 
-	gPopCapGraphics->SetDrawMode(Graphics::DRAWMODE_NORMAL);
-	color = gPopCapGraphics->GetColor();	
-	gPopCapGraphics->SetColor(Color((int)r, (int)g, (int)b));
-	gPopCapGraphics->FillRect(0, 0, gPopCapApp->mWidth, gPopCapApp->mHeight);
-	gPopCapGraphics->SetColor(color);
+	if (gPopCapGraphics != NULL)
+	{
+		gPopCapGraphics->SetDrawMode(Graphics::DRAWMODE_NORMAL);
+		color = gPopCapGraphics->GetColor();	
+		gPopCapGraphics->SetColor(Color((int)r, (int)g, (int)b));
+		gPopCapGraphics->FillRect(0, 0, gPopCapApp->mWidth, gPopCapApp->mHeight);
+		gPopCapGraphics->SetColor(color);
+	}
 	SetBlend(blend);
 
 	return 0;
@@ -230,7 +246,10 @@ int gxtkGraphics::SetARGB()
 	}
 	
 	colorARGB = (a << 24) | (red << 16) | (grn << 8) | blu;
-	gPopCapGraphics->SetColor(Color(red, grn, blu, a));
+	if (gPopCapGraphics != NULL)
+	{
+		gPopCapGraphics->SetColor(Color(red, grn, blu, a));
+	}
 
 	return 0;
 }
@@ -262,10 +281,16 @@ int gxtkGraphics::SetBlend( int blend )
 	switch( blend )
 	{
 	case 1:
-		gPopCapGraphics->SetDrawMode(Graphics::DRAWMODE_ADDITIVE);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->SetDrawMode(Graphics::DRAWMODE_ADDITIVE);
+		}
 		break;
 	default:
-		gPopCapGraphics->SetDrawMode(Graphics::DRAWMODE_NORMAL);		
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->SetDrawMode(Graphics::DRAWMODE_NORMAL);
+		}
 	}
 	this->blend = blend;
 
@@ -280,7 +305,10 @@ int gxtkGraphics::SetScissor( int x,int y,int w,int h )
 	
 	if( x!=0 || y!=0 || w!=Width() || h!=Height() )
 	{
-		gPopCapGraphics->SetClipRect(x, y, w, h);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->SetClipRect(x, y, w, h);
+		}
 
 		scissorX1 = x;
 		scissorY1 = y;
@@ -289,7 +317,10 @@ int gxtkGraphics::SetScissor( int x,int y,int w,int h )
 	}
 	else
 	{
-		gPopCapGraphics->ClearClipRect();
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->ClearClipRect();
+		}
 
 		scissorX1 = 0;
 		scissorY1 = 0;
@@ -325,7 +356,10 @@ int gxtkGraphics::DrawLine( float x0,float y0,float x1,float y1 )
 		x1=tx1 * ix + y1 * jx + tx;y1=tx1 * iy + y1 * jy + ty;
 	}
 
-	gPopCapGraphics->DrawLine((int)x0, (int)y0, (int)x1, (int)y1);
+	if (gPopCapGraphics != NULL)
+	{
+		gPopCapGraphics->DrawLine((int)x0, (int)y0, (int)x1, (int)y1);
+	}
 	
 	return 0;
 }
@@ -385,11 +419,17 @@ int gxtkGraphics::DrawRect( float x,float y,float w,float h )
 		vertices[3].mX = (int)(tx3 * ix + y3 * jx + tx);
 		vertices[3].mY = (int)(tx3 * iy + y3 * jy + ty);
 		
-		gPopCapGraphics->PolyFill(vertices, 4, true);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->PolyFill(vertices, 4, true);
+		}
 	}
 	else
 	{
-		gPopCapGraphics->FillRect((int)x, (int)y, (int)w, (int)h);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->FillRect((int)x, (int)y, (int)w, (int)h);
+		}
 	}
 	
 	return 0;
@@ -454,7 +494,10 @@ int gxtkGraphics::DrawOval( float x,float y,float w,float h )
 		vertices[i].mY = (int)py;
 	}
 
-	gPopCapGraphics->PolyFill(vertices, segs, true);
+	if (gPopCapGraphics != NULL)
+	{
+		gPopCapGraphics->PolyFill(vertices, segs, true);
+	}
 	
 	return 0;
 }
@@ -484,7 +527,10 @@ int gxtkGraphics::DrawPoly( Array<float> verts )
 		vertices[i].mY = (int)py;
 	}
 
-	gPopCapGraphics->PolyFill(vertices, n, true);
+	if (gPopCapGraphics != NULL)
+	{
+		gPopCapGraphics->PolyFill(vertices, n, true);
+	}
 
 	return 0;
 }
@@ -526,7 +572,10 @@ int gxtkGraphics::DrawPoly2( Array<Float> verts,gxtkSurface *surface,int srcx,in
 	for (int i = 2 ; i < n ; i ++ )
 	{
 		// Draw triangle using fan shape ... 
-		gPopCapGraphics->DrawTriangleTex(surface->data, triVertices[0], triVertices[i - 1], triVertices[i]);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->DrawTriangleTex(surface->data, triVertices[0], triVertices[i - 1], triVertices[i]);
+		}
 	}
 	
 	return 0;
@@ -548,11 +597,17 @@ int gxtkGraphics::DrawSurface(gxtkSurface *surface, float x, float y)
 	{
 		if (gIs3D)
 		{
-			gPopCapGraphics->DrawImageF(surface->data, x, y);
+			if (gPopCapGraphics != NULL)
+			{
+				gPopCapGraphics->DrawImageF(surface->data, x, y);
+			}
 		}
 		else
 		{
-			gPopCapGraphics->DrawImage(surface->data, (int)x, (int)y);
+			if (gPopCapGraphics != NULL)
+			{
+				gPopCapGraphics->DrawImage(surface->data, (int)x, (int)y);
+			}
 		}
 	}
 	else
@@ -580,8 +635,11 @@ int gxtkGraphics::DrawSurface(gxtkSurface *surface, float x, float y)
 		vp3.x = x2; vp3.y = y2; vp3.u = u1; vp3.v = v1; vp3.color = colorARGB;
 		vp4.x = x3; vp4.y = y3; vp4.u = u0; vp4.v = v1; vp4.color = colorARGB;
 		
-		gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp2, vp3);
-		gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp3, vp4);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp2, vp3);
+			gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp3, vp4);
+		}
 	}
 	
 	return 0;
@@ -600,11 +658,17 @@ int gxtkGraphics::DrawSurface2( gxtkSurface *surface,float x,float y,int srcx,in
 	{
 		if (gIs3D)
 		{
-			gPopCapGraphics->DrawImageF(surface->data, x, y, Rect(srcx, srcy, srcw, srch));
+			if (gPopCapGraphics != NULL)
+			{
+				gPopCapGraphics->DrawImageF(surface->data, x, y, Rect(srcx, srcy, srcw, srch));
+			}
 		}
 		else
 		{
-			gPopCapGraphics->DrawImage(surface->data, (int)x, (int)y, Rect(srcx, srcy, srcw, srch));
+			if (gPopCapGraphics != NULL)
+			{
+				gPopCapGraphics->DrawImage(surface->data, (int)x, (int)y, Rect(srcx, srcy, srcw, srch));
+			}
 		}
 	}
   else
@@ -637,8 +701,11 @@ int gxtkGraphics::DrawSurface2( gxtkSurface *surface,float x,float y,int srcx,in
 		vp3.x = x2; vp3.y = y2; vp3.u = u1; vp3.v = v1; vp3.color = colorARGB;
 		vp4.x = x3; vp4.y = y3; vp4.u = u0; vp4.v = v1; vp4.color = colorARGB;
 		
-		gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp2, vp3);
-		gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp3, vp4);
+		if (gPopCapGraphics != NULL)
+		{
+			gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp2, vp3);
+			gPopCapGraphics->DrawTriangleTex(surface->data, vp1, vp3, vp4);
+		}
 	}
 	
 	return 0;
