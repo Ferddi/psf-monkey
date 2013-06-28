@@ -315,6 +315,16 @@ void WidgetManager::Resize(const Rect& theMouseDestRect, const Rect& theMouseSou
 	mMouseSourceRect = theMouseSourceRect;
 }
 
+void WidgetManager::ResizeWidget(const Rect& theMouseDestRect, const Rect& theMouseSourceRect)
+{	
+	//Resize(theMouseDestRect, theMouseSourceRect);
+
+	WidgetList::reverse_iterator anItr = mWidgets.rbegin();
+	Widget* aWidget = *anItr;
+	aWidget->mWidth = mWidth;
+	aWidget->mHeight = mHeight;
+}
+
 void WidgetManager::SetFocus(Widget* aWidget)
 {	
 	if (aWidget==mFocusWidget)

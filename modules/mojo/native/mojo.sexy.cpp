@@ -1224,8 +1224,9 @@ static void SetGraphicsNative(int width, int height)
 {
 	gPopCapApp->mWidth = width;
 	gPopCapApp->mHeight = height;
-
+	
 	gPopCapApp->SwitchScreenMode(gPopCapApp->mIsWindowed);
+	gPopCapApp->mWidgetManager->ResizeWidget(Rect(0, 0, width, height), Rect(0, 0, width, height));
 }
 
 //functions

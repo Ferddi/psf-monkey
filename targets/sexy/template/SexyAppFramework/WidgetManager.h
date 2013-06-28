@@ -94,6 +94,7 @@ public:
 	void					AddBaseModal(Widget* theWidget);
 	void					RemoveBaseModal(Widget* theWidget);
 	void					Resize(const Rect& theMouseDestRect, const Rect& theMouseSourceRect);
+	void					ResizeWidget(const Rect& theMouseDestRect, const Rect& theMouseSourceRect);
 	void					DisableWidget(Widget* theWidget);	
 	Widget*					GetAnyWidgetAt(int x, int y, int* theWidgetX, int* theWidgetY);
 	Widget*					GetWidgetAt(int x, int y, int* theWidgetX, int* theWidgetY);
