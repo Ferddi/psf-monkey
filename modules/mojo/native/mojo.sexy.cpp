@@ -1249,3 +1249,17 @@ static void CenterWindowNative(bool center)
 {
 	gPopCapCenterWindow = center;
 }
+
+DDImage* gPopCapDDImage = NULL;
+static void BeginRenderSexyNative()
+{
+	gPopCapGraphics = new Graphics(gPopCapApp->mWidgetManager->mImage);
+}
+
+static void EndRenderSexyNative()
+{
+	delete gPopCapGraphics;
+	gPopCapGraphics = NULL;
+
+	gPopCapApp->Redraw(NULL);
+}
