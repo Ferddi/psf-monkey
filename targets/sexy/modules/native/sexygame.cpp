@@ -1,4 +1,7 @@
 
+#define _QUOTE(X) #X
+#define _STRINGIZE( X ) _QUOTE(X)
+
 //***** sexygame.h *****
 
 class BBSexyGame : public BBGame{
@@ -557,7 +560,8 @@ GameApp::GameApp()
 	mProductVersion = "0.1";
 
 	// This is the text that appears in the title bar of the application window
-	mTitle = StringToSexyStringFast("SexyAppFramework: " + mProdName + " - " + mProductVersion);
+	//mTitle = StringToSexyStringFast("SexyAppFramework: " + mProdName + " - " + mProductVersion);
+	mTitle = StringToSexyStringFast(_STRINGIZE(CFG_GLFW_WINDOW_TITLE));
 
 	// Indicates the registry location where all registry keys will be read from
 	// and written to. This is stored under the HKEY_CURRENT_USER tree on 
@@ -781,8 +785,7 @@ bool BBSexyGame::PollJoystick( int port,Array<Float> joyx,Array<Float> joyy,Arra
 
 void BBSexyGame::OpenUrl( String url ){
 #if _WIN32
-	char *cstr=url.ToCString<char>();
-	ShellExecute( HWND_DESKTOP,"open",cstr,0,0,SW_SHOWNORMAL );
+	ShellExecute( HWND_DESKTOP,"open",url.ToCString<char>(),0,0,SW_SHOWNORMAL );
 #elif __APPLE__
 	UInt8 *cstr=url.ToCString<UInt8>();
 	if( CFURLRef cfurl=CFURLCreateWithBytes( 0,cstr,url.Length(),kCFStringEncodingASCII,0 ) ){
